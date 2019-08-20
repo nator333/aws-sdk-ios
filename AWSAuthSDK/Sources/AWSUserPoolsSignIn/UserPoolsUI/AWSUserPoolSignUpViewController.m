@@ -122,20 +122,6 @@ id<AWSUIConfiguration> config = nil;
 - (IBAction)onSignUpClicked:(id)sender {
     
     NSMutableArray * attributes = [NSMutableArray new];
-    AWSCognitoIdentityUserAttributeType * phone = [AWSCognitoIdentityUserAttributeType new];
-    phone.name = @"phone_number";
-    phone.value = [self.tableDelegate getValueForCell:self.phoneNumberRow forTableView:self.tableView];
-    AWSCognitoIdentityUserAttributeType * email = [AWSCognitoIdentityUserAttributeType new];
-    email.name = @"email";
-    email.value = [self.tableDelegate getValueForCell:self.emailRow forTableView:self.tableView];
-    
-    if(![@"" isEqualToString:phone.value]){
-        [attributes addObject:phone];
-    }
-    if(![@"" isEqualToString:email.value]){
-        [attributes addObject:email];
-    }
-    
     NSString *userName = [self.tableDelegate getValueForCell:self.userNameRow forTableView:self.tableView];
     NSString *password = [self.tableDelegate getValueForCell:self.passwordRow forTableView:self.tableView];
     if ([userName isEqualToString:@""] || [password isEqualToString:@""]) {
@@ -148,20 +134,6 @@ id<AWSUIConfiguration> config = nil;
                            animated:YES
                          completion:nil];
         return;
-    }
-    
-    NSString *phoneNumber = [self.tableDelegate getValueForCell:self.phoneNumberRow forTableView:self.tableView];
-    if (phoneNumber.length > 0) {
-        if (![phoneNumber hasPrefix:@"+"]) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Invalid format"
-                                                                                     message:@"Phone number should begin with country code. E.g. +1992.."
-                                                                              preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-            [alertController addAction:ok];
-            [self presentViewController:alertController
-                               animated:YES
-                             completion:nil];
-        }
     }
     
     //sign up the user
