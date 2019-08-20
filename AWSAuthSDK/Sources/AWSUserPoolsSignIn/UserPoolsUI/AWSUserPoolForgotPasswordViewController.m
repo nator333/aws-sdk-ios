@@ -60,6 +60,7 @@
 }
 
 - (void)setUp {
+    self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
     _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
     _tableDelegate = [AWSFormTableDelegate new];
     [self.tableDelegate addCell:self.userNameRow];
